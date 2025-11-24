@@ -690,7 +690,7 @@
     </div>
 
     <script>
-        // URL del Google Apps Script Web App - ACTUALIZAR CON LA NUEVA URL
+        // URL del Google Apps Script Web App - ACTUALIZAR CON TU NUEVA URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzAbNKPBCOTM2Kl80u6Us9Wi8YwdRoQPARCirML9d63cqPy-9FCwWiARbm6Icjkpvvf2Q/exec';
         
         // Establecimientos por MicroRed
@@ -875,11 +875,11 @@
             });
         });
 
-        // Envío del formulario - VERSIÓN MEJORADA PARA GITHUB PAGES
+        // Envío del formulario - VERSIÓN MEJORADA
         document.getElementById('soporteForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            console.log('🚀 INICIANDO ENVÍO DESDE GITHUB PAGES');
+            console.log('🚀 INICIANDO ENVÍO DEL FORMULARIO');
             
             // Validaciones
             const whatsapp = document.getElementById('whatsapp').value;
@@ -909,7 +909,7 @@
             try {
                 console.log('📤 Enviando a Google Apps Script:', GOOGLE_SCRIPT_URL);
                 
-                // Usar XMLHttpRequest como fallback para mejor compatibilidad
+                // Usar XMLHttpRequest para mejor compatibilidad
                 const xhr = new XMLHttpRequest();
                 const url = GOOGLE_SCRIPT_URL;
                 
@@ -954,6 +954,13 @@
                     mostrarAlerta('Error de conexión. Verifica tu internet e intenta nuevamente.', 'danger');
                 };
                 
+                xhr.timeout = 30000; // 30 segundos timeout
+                xhr.ontimeout = function() {
+                    document.getElementById('loading').classList.remove('show');
+                    console.error('⏰ Timeout en la solicitud');
+                    mostrarAlerta('Tiempo de espera agotado. Por favor, intenta nuevamente.', 'danger');
+                };
+                
                 xhr.send(JSON.stringify(data));
                 
             } catch (error) {
@@ -963,12 +970,13 @@
             }
         });
 
-        // Función para probar la conexión (opcional)
+        // Función para probar la conexión
         async function probarConexion() {
             try {
+                console.log('🔍 Probando conexión con Google Apps Script...');
                 const response = await fetch(GOOGLE_SCRIPT_URL);
                 const text = await response.text();
-                console.log('🔍 Test conexión:', text);
+                console.log('✅ Test conexión exitoso:', text.substring(0, 100));
                 return true;
             } catch (error) {
                 console.error('❌ Test conexión falló:', error);
@@ -978,18 +986,18 @@
 
         // Probar conexión al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔄 Página cargada, probando conexión...');
             setTimeout(() => {
                 probarConexion().then(success => {
                     if (success) {
                         console.log('✅ Conexión con Google Apps Script: OK');
                     } else {
                         console.warn('⚠️ Conexión con Google Apps Script: FALLÓ');
+                        mostrarAlerta('Advertencia: No se pudo conectar con el servidor. El formulario podría no funcionar correctamente.', 'info');
                     }
                 });
             }, 1000);
         });
     </script>
 </body>
-
 </html>
-
