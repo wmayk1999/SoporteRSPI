@@ -690,7 +690,7 @@
     </div>
 
     <script>
-        // URL del Google Apps Script Web App
+        // URL del Google Apps Script Web App - ACTUALIZAR CON LA NUEVA URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvuALEChj1YMyNKOlds4c41XIrzWxcCz0FtN1lcmFYlwxOnMOK9m3RcgQaVHALgtcXhg/exec';
         
         // Establecimientos por MicroRed
@@ -875,11 +875,11 @@
             });
         });
 
-        // Envío del formulario - VERSIÓN CORREGIDA
+        // Envío del formulario - VERSIÓN MEJORADA PARA GITHUB PAGES
         document.getElementById('soporteForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            console.log('=== INICIANDO ENVÍO ===');
+            console.log('🚀 INICIANDO ENVÍO DESDE GITHUB PAGES');
             
             // Validaciones
             const whatsapp = document.getElementById('whatsapp').value;
@@ -895,7 +895,7 @@
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
             
-            console.log('Datos del formulario:', data);
+            console.log('📝 Datos del formulario:', data);
             
             // Si el motivo es "Otro", usar el texto personalizado
             if (data.motivo === 'Otro' && data.otroMotivo) {
@@ -907,62 +907,86 @@
             
             // ENVÍO REAL A GOOGLE APPS SCRIPT
             try {
-                console.log('Enviando a:', GOOGLE_SCRIPT_URL);
+                console.log('📤 Enviando a Google Apps Script:', GOOGLE_SCRIPT_URL);
                 
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                console.log('Respuesta recibida, status:', response.status);
+                // Usar XMLHttpRequest como fallback para mejor compatibilidad
+                const xhr = new XMLHttpRequest();
+                const url = GOOGLE_SCRIPT_URL;
                 
-                // Obtener la respuesta como texto
-                const responseText = await response.text();
-                console.log('Respuesta completa:', responseText);
+                xhr.open('POST', url, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
                 
-                let result;
-                try {
-                    result = JSON.parse(responseText);
-                } catch (parseError) {
-                    console.error('Error parseando JSON:', parseError);
-                    throw new Error('Respuesta inválida del servidor: ' + responseText);
-                }
-                
-                document.getElementById('loading').classList.remove('show');
-                
-                if (result.status === 'success') {
-                    console.log('Éxito - Ticket:', result.ticket);
-                    mostrarAlerta(`¡Solicitud enviada exitosamente! Tu número de ticket es: ${result.ticket}. Recibirás una confirmación por correo.`, 'success');
-                    
-                    // Limpiar formulario después de envío exitoso
-                    setTimeout(() => {
-                        if (confirm('¿Desea realizar otra solicitud?')) {
-                            limpiarFormulario();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        document.getElementById('loading').classList.remove('show');
+                        
+                        if (xhr.status === 200) {
+                            try {
+                                const result = JSON.parse(xhr.responseText);
+                                console.log('✅ Respuesta del servidor:', result);
+                                
+                                if (result.status === 'success') {
+                                    mostrarAlerta(`¡Solicitud enviada exitosamente! Tu número de ticket es: ${result.ticket}. Recibirás una confirmación por correo.`, 'success');
+                                    
+                                    // Limpiar formulario después de envío exitoso
+                                    setTimeout(() => {
+                                        if (confirm('¿Desea realizar otra solicitud?')) {
+                                            limpiarFormulario();
+                                        }
+                                    }, 3000);
+                                } else {
+                                    throw new Error(result.message || 'Error desconocido del servidor');
+                                }
+                            } catch (parseError) {
+                                console.error('❌ Error parseando respuesta:', parseError);
+                                mostrarAlerta('Error en la respuesta del servidor. Por favor, contacta al área de soporte.', 'danger');
+                            }
+                        } else {
+                            console.error('❌ Error HTTP:', xhr.status, xhr.statusText);
+                            mostrarAlerta(`Error de conexión (${xhr.status}). Por favor, intenta nuevamente.`, 'danger');
                         }
-                    }, 3000);
-                } else {
-                    console.error('Error del servidor:', result.message);
-                    throw new Error(result.message || 'Error desconocido del servidor');
-                }
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    document.getElementById('loading').classList.remove('show');
+                    console.error('❌ Error de red en XMLHttpRequest');
+                    mostrarAlerta('Error de conexión. Verifica tu internet e intenta nuevamente.', 'danger');
+                };
+                
+                xhr.send(JSON.stringify(data));
                 
             } catch (error) {
                 document.getElementById('loading').classList.remove('show');
-                console.error('Error completo en envío:', error);
-                
-                let mensajeError = `Error al enviar la solicitud: ${error.message}`;
-                
-                // Mensajes más específicos según el tipo de error
-                if (error.message.includes('Failed to fetch')) {
-                    mensajeError = 'Error de conexión. Verifica tu internet e intenta nuevamente.';
-                } else if (error.message.includes('Respuesta inválida')) {
-                    mensajeError = 'Error en el servidor. Por favor, contacta al área de soporte.';
-                }
-                
-                mostrarAlerta(mensajeError, 'danger');
+                console.error('💥 Error completo en envío:', error);
+                mostrarAlerta('Error inesperado. Por favor, contacta al área de soporte.', 'danger');
             }
+        });
+
+        // Función para probar la conexión (opcional)
+        async function probarConexion() {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL);
+                const text = await response.text();
+                console.log('🔍 Test conexión:', text);
+                return true;
+            } catch (error) {
+                console.error('❌ Test conexión falló:', error);
+                return false;
+            }
+        }
+
+        // Probar conexión al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                probarConexion().then(success => {
+                    if (success) {
+                        console.log('✅ Conexión con Google Apps Script: OK');
+                    } else {
+                        console.warn('⚠️ Conexión con Google Apps Script: FALLÓ');
+                    }
+                });
+            }, 1000);
         });
     </script>
 </body>
