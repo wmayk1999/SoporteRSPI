@@ -690,8 +690,8 @@
     </div>
 
     <script>
-        // URL del Google Apps Script Web App - ACTUALIZAR CON TU NUEVA URL
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzAbNKPBCOTM2Kl80u6Us9Wi8YwdRoQPARCirML9d63cqPy-9FCwWiARbm6Icjkpvvf2Q/exec';
+        // URL del Google Apps Script Web App - ACTUALIZAR CON LA NUEVA URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEB9JN_MN-xCconvL1cQh-MEZlM90Ia5dQiH1lvbdw6xHPSFmDUcYdnpF6VtPC73p4/exec';
         
         // Establecimientos por MicroRed
         const establecimientosPorMicroRed = {
@@ -875,11 +875,11 @@
             });
         });
 
-        // Envío del formulario - VERSIÓN MEJORADA
+        // Envío del formulario - VERSIÓN MEJORADA PARA GITHUB PAGES
         document.getElementById('soporteForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            console.log('🚀 INICIANDO ENVÍO DEL FORMULARIO');
+            console.log('🚀 INICIANDO ENVÍO DESDE GITHUB PAGES');
             
             // Validaciones
             const whatsapp = document.getElementById('whatsapp').value;
@@ -909,74 +909,47 @@
             try {
                 console.log('📤 Enviando a Google Apps Script:', GOOGLE_SCRIPT_URL);
                 
-                // Usar XMLHttpRequest para mejor compatibilidad
-                const xhr = new XMLHttpRequest();
-                const url = GOOGLE_SCRIPT_URL;
+                // Usar fetch con redirect para Google Apps Script
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    redirect: "follow",
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                document.getElementById('loading').classList.remove('show');
                 
-                xhr.open('POST', url, true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
+                const result = await response.json();
+                console.log('✅ Respuesta del servidor:', result);
                 
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4) {
-                        document.getElementById('loading').classList.remove('show');
-                        
-                        if (xhr.status === 200) {
-                            try {
-                                const result = JSON.parse(xhr.responseText);
-                                console.log('✅ Respuesta del servidor:', result);
-                                
-                                if (result.status === 'success') {
-                                    mostrarAlerta(`¡Solicitud enviada exitosamente! Tu número de ticket es: ${result.ticket}. Recibirás una confirmación por correo.`, 'success');
-                                    
-                                    // Limpiar formulario después de envío exitoso
-                                    setTimeout(() => {
-                                        if (confirm('¿Desea realizar otra solicitud?')) {
-                                            limpiarFormulario();
-                                        }
-                                    }, 3000);
-                                } else {
-                                    throw new Error(result.message || 'Error desconocido del servidor');
-                                }
-                            } catch (parseError) {
-                                console.error('❌ Error parseando respuesta:', parseError);
-                                mostrarAlerta('Error en la respuesta del servidor. Por favor, contacta al área de soporte.', 'danger');
-                            }
-                        } else {
-                            console.error('❌ Error HTTP:', xhr.status, xhr.statusText);
-                            mostrarAlerta(`Error de conexión (${xhr.status}). Por favor, intenta nuevamente.`, 'danger');
+                if (result.status === 'success') {
+                    mostrarAlerta(`¡Solicitud enviada exitosamente! Tu número de ticket es: ${result.ticket}. Recibirás una confirmación por correo.`, 'success');
+                    
+                    // Limpiar formulario después de envío exitoso
+                    setTimeout(() => {
+                        if (confirm('¿Desea realizar otra solicitud?')) {
+                            limpiarFormulario();
                         }
-                    }
-                };
-                
-                xhr.onerror = function() {
-                    document.getElementById('loading').classList.remove('show');
-                    console.error('❌ Error de red en XMLHttpRequest');
-                    mostrarAlerta('Error de conexión. Verifica tu internet e intenta nuevamente.', 'danger');
-                };
-                
-                xhr.timeout = 30000; // 30 segundos timeout
-                xhr.ontimeout = function() {
-                    document.getElementById('loading').classList.remove('show');
-                    console.error('⏰ Timeout en la solicitud');
-                    mostrarAlerta('Tiempo de espera agotado. Por favor, intenta nuevamente.', 'danger');
-                };
-                
-                xhr.send(JSON.stringify(data));
+                    }, 3000);
+                } else {
+                    mostrarAlerta('Error: ' + (result.message || 'Error desconocido del servidor'), 'danger');
+                }
                 
             } catch (error) {
                 document.getElementById('loading').classList.remove('show');
                 console.error('💥 Error completo en envío:', error);
-                mostrarAlerta('Error inesperado. Por favor, contacta al área de soporte.', 'danger');
+                mostrarAlerta('Error de conexión. Verifica tu internet e intenta nuevamente.', 'danger');
             }
         });
 
-        // Función para probar la conexión
+        // Función para probar la conexión (opcional)
         async function probarConexion() {
             try {
-                console.log('🔍 Probando conexión con Google Apps Script...');
                 const response = await fetch(GOOGLE_SCRIPT_URL);
                 const text = await response.text();
-                console.log('✅ Test conexión exitoso:', text.substring(0, 100));
+                console.log('🔍 Test conexión:', text);
                 return true;
             } catch (error) {
                 console.error('❌ Test conexión falló:', error);
@@ -986,14 +959,12 @@
 
         // Probar conexión al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🔄 Página cargada, probando conexión...');
             setTimeout(() => {
                 probarConexion().then(success => {
                     if (success) {
                         console.log('✅ Conexión con Google Apps Script: OK');
                     } else {
                         console.warn('⚠️ Conexión con Google Apps Script: FALLÓ');
-                        mostrarAlerta('Advertencia: No se pudo conectar con el servidor. El formulario podría no funcionar correctamente.', 'info');
                     }
                 });
             }, 1000);
