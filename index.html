@@ -970,6 +970,7 @@
             // ENVÍO REAL A GOOGLE APPS SCRIPT
             try {
                 console.log('📤 Enviando a Google Apps Script:', GOOGLE_SCRIPT_URL);
+                console.log('📦 Datos enviados:', data);
                 
                 // Usar fetch con redirect para Google Apps Script
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
