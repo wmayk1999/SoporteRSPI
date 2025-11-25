@@ -482,129 +482,8 @@
             <div id="alert" class="alert"></div>
 
             <form id="soporteForm">
-                <!-- SECCIÓN 1: DATOS PERSONALES -->
-                <div class="form-section">
-                    <div class="section-title">
-                        <i class="fas fa-user"></i>
-                        <h2>Datos Personales</h2>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="dni">DNI <span class="required">*</span>
-                                <span class="tooltip">
-                                    <i class="fas fa-question-circle"></i>
-                                    <span class="tooltiptext">Número de documento de identidad (máximo 9 dígitos)</span>
-                                </span>
-                            </label>
-                            <input type="text" id="dni" name="dni" required maxlength="9" pattern="[0-9]{8,9}" placeholder="12345678">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="nombreApellidos">Nombres y Apellidos <span class="required">*</span></label>
-                            <input type="text" id="nombreApellidos" name="nombreApellidos" required placeholder="Ingrese sus nombres y apellidos completos" style="text-transform: uppercase;">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="fechaNacimiento">Fecha de Nacimiento <span class="required">*</span></label>
-                            <input type="date" id="fechaNacimiento" name="fechaNacimiento" required max="">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="correo">Correo Electrónico <span class="required">*</span>
-                                <span class="tooltip">
-                                    <i class="fas fa-question-circle"></i>
-                                    <span class="tooltiptext">Debe ser un correo válido (@gmail.com, @hotmail.com, @outlook.com, @outlook.es)</span>
-                                </span>
-                            </label>
-                            <input type="email" id="correo" name="correo" required placeholder="correo@gmail.com" pattern=".*@(gmail\.com|hotmail\.com|outlook\.com|outlook\.es)$">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="whatsapp">WhatsApp <span class="required">*</span>
-                                <span class="tooltip">
-                                    <i class="fas fa-question-circle"></i>
-                                    <span class="tooltiptext">Número de WhatsApp (debe comenzar con 9 y tener 9 dígitos)</span>
-                                </span>
-                            </label>
-                            <input type="tel" id="whatsapp" name="whatsapp" required placeholder="999999999" pattern="9[0-9]{8}" maxlength="9">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="profesion">Profesión <span class="required">*</span></label>
-                            <select id="profesion" name="profesion" required>
-                                <option value="">-- Seleccione su profesión --</option>
-                                <option value="Lic. Enfermería">Lic. Enfermería</option>
-                                <option value="Obstetriz">Obstetriz</option>
-                                <option value="Agente Comunitario">Agente Comunitario</option>
-                                <option value="Tec. Computación">Tec. Computación</option>
-                                <option value="Estadistico">Estadístico</option>
-                                <option value="Medico General">Médico General</option>
-                                <option value="Biologo">Biólogo</option>
-                                <option value="Medico Gineco-Obstetra">Médico Gineco-Obstetra</option>
-                                <option value="Medico Pediatra">Médico Pediatra</option>
-                                <option value="Medico Psiquiatra">Médico Psiquiatra</option>
-                                <option value="Odontologo">Odontólogo</option>
-                                <option value="Psicologo">Psicólogo</option>
-                                <option value="Tec. Enfermería">Tec. Enfermería</option>
-                                <option value="Tec. Laboratorio">Tec. Laboratorio</option>
-                                <option value="Veterinario">Veterinario</option>
-                                <option value="Quimico Farmaceutico">Químico Farmacéutico</option>
-                                <option value="Nutricionista">Nutricionista</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nroColegio">N° de Colegiatura
-                                <span class="tooltip">
-                                    <i class="fas fa-question-circle"></i>
-                                    <span class="tooltiptext">Número de colegiatura profesional (si aplica)</span>
-                                </span>
-                            </label>
-                            <input type="text" id="nroColegio" name="nroColegio" placeholder="Número de colegiatura">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="modalidadContrato">Modalidad de Contrato <span class="required">*</span></label>
-                            <select id="modalidadContrato" name="modalidadContrato" required onchange="toggleFinContrato()">
-                                <option value="">-- Seleccione modalidad --</option>
-                                <option value="Nombrado">Nombrado</option>
-                                <option value="CAS. DL.1057">CAS. DL.1057</option>
-                                <option value="CAS DL.728">CAS DL.728</option>
-                                <option value="Suplencia DL.276">Suplencia DL.276</option>
-                                <option value="Suplencia DL.1057">Suplencia DL.1057</option>
-                                <option value="SERUMS">SERUMS</option>
-                                <option value="Locación">Locación</option>
-                                <option value="Otros">Otros</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group" id="finContratoGroup">
-                            <label for="finContrato">Fin de Contrato
-                                <span class="tooltip">
-                                    <i class="fas fa-question-circle"></i>
-                                    <span class="tooltiptext">Solo para contratos temporales</span>
-                                </span>
-                            </label>
-                            <input type="date" id="finContrato" name="finContrato">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="fechaRegistro">Fecha de Registro <span class="required">*</span></label>
-                            <input type="date" id="fechaRegistro" name="fechaRegistro" required readonly style="background-color: #f0f0f0;">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECCIÓN 2: SISTEMA Y ESTABLECIMIENTO -->
+            <form id="soporteForm">
+                <!-- SECCIÓN 1: SISTEMA Y ESTABLECIMIENTO (MOVIDA AL INICIO) -->
                 <div class="form-section">
                     <div class="section-title">
                         <i class="fas fa-laptop-medical"></i>
@@ -614,7 +493,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sistema">Sistema <span class="required">*</span></label>
-                            <select id="sistema" name="sistema" required>
+                            <select id="sistema" name="sistema" required onchange="toggleFechaCumple()">
                                 <option value="">-- Seleccione sistema --</option>
                                 <option value="HIS MINSA">HIS MINSA</option>
                                 <option value="SIHCE">SIHCE</option>
@@ -649,11 +528,11 @@
                             <select id="motivo" name="motivo" required onchange="verificarOtroMotivo()">
                                 <option value="">-- Seleccione motivo --</option>
                                 <option value="Olvidé mi contraseña">Olvidé mi contraseña</option>
-                                <option value="Usuario Inactivo">Usuario Inactivo</option>
+                                <option value="Usuario Inactivo-Bloqueado">Usuario Inactivo-Bloqueado</option>
                                 <option value="Creación de Usuario">Creación de Usuario</option>
+                                <option value="Baja de Usuario">Baja de Usuario</option>
                                 <option value="Actualización de Datos">Actualización de Datos</option>
                                 <option value="Error en el Sistema">Error en el Sistema</option>
-                                <option value="Capacitación">Solicitud de Capacitación</option>
                                 <option value="Otro">Otro</option>
                             </select>
                         </div>
@@ -663,10 +542,148 @@
                         <label for="otroMotivo">Especifique el motivo <span class="required">*</span></label>
                         <textarea id="otroMotivo" name="otroMotivo" rows="3" placeholder="Describa detalladamente el motivo de su solicitud"></textarea>
                     </div>
+                </div>
+
+                <!-- SECCIÓN 2: DATOS PERSONALES -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-user"></i>
+                        <h2>Datos Personales</h2>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dni">DNI <span class="required">*</span>
+                                <span class="tooltip">
+                                    <i class="fas fa-question-circle"></i>
+                                    <span class="tooltiptext">Número de documento de identidad (máximo 9 dígitos)</span>
+                                </span>
+                            </label>
+                            <input type="text" id="dni" name="dni" required maxlength="9" pattern="[0-9]{8,9}" placeholder="12345678">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nombreApellidos">Nombres y Apellidos <span class="required">*</span></label>
+                            <input type="text" id="nombreApellidos" name="nombreApellidos" required placeholder="Ingrese sus nombres y apellidos completos" style="text-transform: uppercase;">
+                        </div>
+                    </div>
+
+                    <!-- Campo CONDICIONAL: Solo para SUSALUD -->
+                    <div class="form-row" id="fechaNacimientoRow" style="display: none;">
+                        <div class="form-group">
+                            <label for="fechaNacimiento">Fecha de Nacimiento <span class="required">*</span>
+                                <span class="tooltip">
+                                    <i class="fas fa-question-circle"></i>
+                                    <span class="tooltiptext">Requerido solo para sistema SUSALUD</span>
+                                </span>
+                            </label>
+                            <input type="date" id="fechaNacimiento" name="fechaNacimiento" max="">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico <span class="required">*</span>
+                                <span class="tooltip">
+                                    <i class="fas fa-question-circle"></i>
+                                    <span class="tooltiptext">Debe ser un correo válido (@gmail.com, @hotmail.com, @outlook.com, @outlook.es)</span>
+                                </span>
+                            </label>
+                            <input type="email" id="correo" name="correo" required placeholder="correo@gmail.com" pattern=".*@(gmail\.com|hotmail\.com|outlook\.com|outlook\.es)$">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp <span class="required">*</span>
+                                <span class="tooltip">
+                                    <i class="fas fa-question-circle"></i>
+                                    <span class="tooltiptext">Número de WhatsApp (debe comenzar con 9 y tener 9 dígitos)</span>
+                                </span>
+                            </label>
+                            <input type="tel" id="whatsapp" name="whatsapp" required placeholder="999999999" pattern="9[0-9]{8}" maxlength="9">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profesion">Profesión <span class="required">*</span></label>
+                            <select id="profesion" name="profesion" required>
+                                <option value="">-- Seleccione su profesión --</option>
+                                <option value="Lic. Enfermería">Lic. Enfermería</option>
+                                <option value="Obstetriz">Obstetriz</option>
+                                <option value="Agente Comunitario">Agente Comunitario</option>
+                                <option value="Tec. Computación">Tec. Computación</option>
+                                <option value="Estadistico">Estadístico</option>
+                                <option value="Medico General">Médico General</option>
+                                <option value="Biologo">Biólogo</option>
+                                <option value="Medico Gineco-Obstetra">Médico Gineco-Obstetra</option>
+                                <option value="Medico Pediatra">Médico Pediatra</option>
+                                <option value="Medico Psiquiatra">Médico Psiquiatra</option>
+                                <option value="Odontologo">Odontólogo</option>
+                                <option value="Psicologo">Psicólogo</option>
+                                <option value="Tec. Enfermería">Tec. Enfermería</option>
+                                <option value="Tec. Laboratorio">Tec. Laboratorio</option>
+                                <option value="Veterinario">Veterinario</option>
+                                <option value="Quimico Farmaceutico">Químico Farmacéutico</option>
+                                <option value="Nutricionista">Nutricionista</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nroColegio">N° de Colegio Profesional
+                                <span class="tooltip">
+                                    <i class="fas fa-question-circle"></i>
+                                    <span class="tooltiptext">Opcional - Solo si cuenta con número de colegiatura</span>
+                                </span>
+                            </label>
+                            <input type="text" id="nroColegio" name="nroColegio" placeholder="Ej: 12345">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="modalidadContrato">Modalidad de Contrato <span class="required">*</span></label>
+                            <select id="modalidadContrato" name="modalidadContrato" required onchange="toggleFinContrato()">
+                                <option value="">-- Seleccione modalidad --</option>
+                                <option value="Nombrado DL.276">Nombrado DL.276</option>
+                                <option value="Nombrado DL.1057">Nombrado DL.1057</option>
+                                <option value="CAS. DL.1057 Temporal">CAS. DL.1057 Temporal</option>
+                                <option value="CAS. DL.1057 Indeterminado">CAS. DL.1057 Indeterminado</option>
+                                <option value="CAS DL.728">CAS DL.728</option>
+                                <option value="Suplencia DL.276">Suplencia DL.276</option>
+                                <option value="Suplencia DL.1057">Suplencia DL.1057</option>
+                                <option value="SERUMS">SERUMS</option>
+                                <option value="Locación">Locación</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="finContratoGroup">
+                            <label for="finContrato">Fin de Contrato
+                                <span class="tooltip">
+                                    <i class="fas fa-question-circle"></i>
+                                    <span class="tooltiptext">Solo requerido para contratos temporales</span>
+                                </span>
+                            </label>
+                            <input type="date" id="finContrato" name="finContrato">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 3: DESCRIPCIÓN DETALLADA (AL FINAL) -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-comment-dots"></i>
+                        <h2>Información Adicional</h2>
+                    </div>
 
                     <div class="form-group">
-                        <label for="descripcionDetallada">Descripción Detallada (Opcional)</label>
-                        <textarea id="descripcionDetallada" name="descripcionDetallada" rows="4" placeholder="Proporcione información adicional que pueda ayudarnos a resolver su solicitud más rápidamente"></textarea>
+                        <label for="descripcionDetallada">Descripción Detallada
+                            <span class="tooltip">
+                                <i class="fas fa-question-circle"></i>
+                                <span class="tooltiptext">Proporcione cualquier información adicional que pueda ayudarnos a resolver su solicitud más rápidamente</span>
+                            </span>
+                        </label>
+                        <textarea id="descripcionDetallada" name="descripcionDetallada" rows="4" placeholder="Escriba aquí cualquier detalle adicional sobre su solicitud..."></textarea>
                     </div>
                 </div>
 
@@ -690,7 +707,7 @@
     </div>
 
     <script>
-        // URL del Google Apps Script Web App - ACTUALIZAR CON LA NUEVA URL
+        // URL del Google Apps Script Web App
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyPAS1DyWfGd1z04RteM-EIu6OFYJZ8eTH_xcPM5SzkUT9WtGPL1Za4JOaTxzUTW5_6/exec';
         
         // Establecimientos por MicroRed
@@ -754,18 +771,62 @@
             // Limpiar opciones actuales
             establecimientoSelect.innerHTML = '<option value="">-- Seleccione establecimiento --</option>';
             
-            // Si hay una MicroRed seleccionada
             if (microredSeleccionada && establecimientosPorMicroRed[microredSeleccionada]) {
-                establecimientosPorMicroRed[microredSeleccionada].forEach(establecimiento => {
+                const establecimientos = establecimientosPorMicroRed[microredSeleccionada];
+                establecimientos.forEach(est => {
                     const option = document.createElement('option');
-                    option.value = establecimiento;
-                    option.textContent = establecimiento;
+                    option.value = est;
+                    option.textContent = est;
                     establecimientoSelect.appendChild(option);
                 });
             }
         }
 
-        // Función para mostrar/ocultar campo de otro motivo
+        // NUEVA FUNCIÓN: Mostrar/ocultar fecha de cumpleaños para SUSALUD
+        // FUNCIÓN: Mostrar/ocultar fecha de nacimiento solo para SUSALUD
+        function toggleFechaCumple() {
+            const sistemaSelect = document.getElementById('sistema');
+            const fechaNacimientoRow = document.getElementById('fechaNacimientoRow');
+            const fechaNacimientoInput = document.getElementById('fechaNacimiento');
+            
+            if (sistemaSelect.value === 'SUSALUD') {
+                fechaNacimientoRow.style.display = 'flex';
+                fechaNacimientoInput.required = true;
+            } else {
+                fechaNacimientoRow.style.display = 'none';
+                fechaNacimientoInput.required = false;
+                fechaNacimientoInput.value = '';
+            }
+        }
+
+        // FUNCIÓN ACTUALIZADA: Mostrar/ocultar fin de contrato según modalidad
+        function toggleFinContrato() {
+            const modalidadSelect = document.getElementById('modalidadContrato');
+            const finContratoGroup = document.getElementById('finContratoGroup');
+            const finContratoInput = document.getElementById('finContrato');
+            
+            // Modalidades que NO requieren fin de contrato
+            const modalidadesPermanentes = [
+                'Nombrado DL.276', 
+                'Nombrado DL.1057', 
+                'CAS. DL.1057 Indeterminado'  // ← NUEVA LÓGICA
+            ];
+            
+            if (modalidadesPermanentes.includes(modalidadSelect.value)) {
+                // No requiere fin de contrato
+                finContratoInput.required = false;
+                finContratoInput.value = '';
+                finContratoGroup.style.opacity = '0.5';
+                finContratoInput.disabled = true;
+            } else {
+                // Sí requiere fin de contrato
+                finContratoInput.required = true;
+                finContratoGroup.style.opacity = '1';
+                finContratoInput.disabled = false;
+            }
+        }
+
+        // Función para verificar si se seleccionó "Otro" motivo
         function verificarOtroMotivo() {
             const motivoSelect = document.getElementById('motivo');
             const otroMotivoGroup = document.getElementById('otroMotivoGroup');
@@ -781,115 +842,98 @@
             }
         }
 
-        // Función para mostrar/ocultar fin de contrato según modalidad
-        function toggleFinContrato() {
-            const modalidadSelect = document.getElementById('modalidadContrato');
-            const finContratoInput = document.getElementById('finContrato');
-            const modalidadesTemporales = ['CAS. DL.1057', 'CAS DL.728', 'Suplencia DL.276', 'Suplencia DL.1057', 'SERUMS', 'Locación', 'Otros'];
-            
-            if (modalidadesTemporales.includes(modalidadSelect.value)) {
-                finContratoInput.required = true;
-                finContratoInput.parentElement.style.opacity = '1';
-            } else {
-                finContratoInput.required = false;
-                finContratoInput.value = '';
-                finContratoInput.parentElement.style.opacity = '0.5';
-            }
+        // Establecer fecha máxima de nacimiento (18 años atrás)
+        function establecerFechaMaximaNacimiento() {
+            const fechaNacInput = document.getElementById('fechaNacimiento');
+            const hoy = new Date();
+            const hace18Anos = new Date(hoy.getFullYear() - 18, hoy.getMonth(), hoy.getDate());
+            const fechaMaxima = hace18Anos.toISOString().split('T')[0];
+            fechaNacInput.setAttribute('max', fechaMaxima);
         }
 
-        // Función para mostrar alertas
-        function mostrarAlerta(mensaje, tipo = 'info') {
-            const alert = document.getElementById('alert');
-            alert.className = `alert alert-${tipo} show`;
-            alert.innerHTML = `
-                <i class="fas ${tipo === 'success' ? 'fa-check-circle' : tipo === 'danger' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
-                <span>${mensaje}</span>
-            `;
-            
-            // Ocultar después de 5 segundos
-            setTimeout(() => {
-                alert.classList.remove('show');
-            }, 5000);
+        // Generar número de ticket único
+        function generarNumeroTicket() {
+            const fecha = new Date();
+            const año = fecha.getFullYear();
+            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+            const dia = String(fecha.getDate()).padStart(2, '0');
+            const random = Math.floor(Math.random() * 10000);
+            return `TK-${año}${mes}${dia}-${random}`;
         }
 
         // Función para limpiar el formulario
-        function limpiarFormulario() {
-            if (confirm('¿Está seguro de que desea limpiar todo el formulario?')) {
-                document.getElementById('soporteForm').reset();
-                document.getElementById('establecimiento').innerHTML = '<option value="">-- Primero seleccione una MicroRed --</option>';
-                document.getElementById('otroMotivoGroup').style.display = 'none';
-                
-                // Restablecer fecha de registro
-                document.getElementById('fechaRegistro').valueAsDate = new Date();
-                
-                mostrarAlerta('Formulario limpiado correctamente', 'info');
+        function limpiarFormulario(sinConfirmar = false) {
+            if (!sinConfirmar && !confirm('¿Está seguro de que desea limpiar todos los datos del formulario?')) {
+                return;
             }
+            
+            document.getElementById('soporteForm').reset();
+            document.getElementById('otroMotivoGroup').style.display = 'none';
+            document.getElementById('fechaNacimientoRow').style.display = 'none';
+            document.getElementById('establecimiento').innerHTML = '<option value="">-- Primero seleccione una MicroRed --</option>';
+            toggleFinContrato();
         }
 
-        // Validación de DNI (máximo 9 dígitos)
-        document.getElementById('dni').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9);
-        });
-
-        // Validación de WhatsApp (debe empezar con 9 y tener 9 dígitos)
-        document.getElementById('whatsapp').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
+        // Validar formulario antes de enviar
+        function validarFormulario(formData) {
+            const dni = formData.get('dni');
+            const whatsapp = formData.get('whatsapp');
+            const correo = formData.get('correo');
+            const finContrato = formData.get('finContrato');
+            const modalidad = formData.get('modalidadContrato');
             
-            // Si el primer dígito no es 9, lo eliminamos
-            if (value.length > 0 && value[0] !== '9') {
-                value = '';
-                mostrarAlerta('El número de WhatsApp debe comenzar con 9', 'danger');
+            // Validar DNI
+            if (dni.length < 8 || dni.length > 9) {
+                alert('El DNI debe tener 8 o 9 dígitos');
+                return false;
             }
             
-            e.target.value = value.slice(0, 9);
-        });
-
-        // Validación de correo electrónico
-        document.getElementById('correo').addEventListener('blur', function(e) {
-            const email = e.target.value;
-            const dominiosPermitidos = ['gmail.com', 'hotmail.com', 'outlook.com', 'outlook.es'];
-            
-            if (email) {
-                const dominio = email.split('@')[1];
-                if (!dominiosPermitidos.includes(dominio)) {
-                    mostrarAlerta('El correo debe ser de: @gmail.com, @hotmail.com, @outlook.com o @outlook.es', 'danger');
-                    e.target.setCustomValidity('Dominio de correo no válido');
-                } else {
-                    e.target.setCustomValidity('');
-                }
+            // Validar WhatsApp
+            if (!whatsapp.startsWith('9') || whatsapp.length !== 9) {
+                alert('El número de WhatsApp debe comenzar con 9 y tener 9 dígitos');
+                return false;
             }
-        });
-
-        // Establecer fecha de registro actual
-        document.addEventListener('DOMContentLoaded', function() {
-            // Fecha de registro (hoy)
-            const hoy = new Date();
-            document.getElementById('fechaRegistro').valueAsDate = hoy;
             
-            // Establecer fecha máxima para fecha de nacimiento (no puede ser futuro)
-            document.getElementById('fechaNacimiento').max = hoy.toISOString().split('T')[0];
+            // Validar correo
+            const emailPattern = /@(gmail\.com|hotmail\.com|outlook\.com|outlook\.es)$/;
+            if (!emailPattern.test(correo)) {
+                alert('El correo debe ser de Gmail, Hotmail o Outlook');
+                return false;
+            }
             
-            // Convertir texto a mayúsculas en campo de nombres
-            document.getElementById('nombreApellidos').addEventListener('input', function(e) {
-                e.target.value = e.target.value.toUpperCase();
-            });
-        });
+            // Validar fin de contrato para modalidades temporales
+            const modalidadesPermanentes = ['Nombrado DL.276', 'Nombrado DL.1057', 'CAS. DL.1057 Indeterminado'];
+            if (!modalidadesPermanentes.includes(modalidad) && !finContrato) {
+                alert('Debe especificar la fecha de fin de contrato para esta modalidad');
+                return false;
+            }
+            
+            // Validar fecha de nacimiento para SUSALUD
+            const sistema = formData.get('sistema');
+            const fechaNacimiento = formData.get('fechaNacimiento');
+            if (sistema === 'SUSALUD' && !fechaNacimiento) {
+                alert('Debe especificar la fecha de nacimiento para el sistema SUSALUD');
+                return false;
+            }
+            
+            return true;
+        }
 
-        // Envío del formulario - VERSIÓN MEJORADA PARA GITHUB PAGES
+        // Manejar envío del formulario
         document.getElementById('soporteForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            console.log('🚀 INICIANDO ENVÍO DESDE GITHUB PAGES');
+            console.log('🚀 INICIANDO ENVÍO');
             
-            // Validaciones
+            // Validaciones básicas
             const whatsapp = document.getElementById('whatsapp').value;
             if (whatsapp && whatsapp[0] !== '9') {
-                mostrarAlerta('El número de WhatsApp debe comenzar con 9', 'danger');
+                alert('El número de WhatsApp debe comenzar con 9');
                 return;
             }
             
             // Mostrar loading
-            document.getElementById('loading').classList.add('show');
+            document.getElementById('loading').style.display = 'flex';
             
             // Recopilar datos del formulario
             const formData = new FormData(e.target);
@@ -905,6 +949,25 @@
             // Eliminar campo otroMotivo
             delete data.otroMotivo;
             
+            // Validar campos condicionales
+            const sistema = data.sistema;
+            const modalidad = data.modalidadContrato;
+            
+            // Validar fecha de nacimiento para SUSALUD
+            if (sistema === 'SUSALUD' && !data.fechaNacimiento) {
+                alert('Debe especificar la fecha de nacimiento para el sistema SUSALUD');
+                document.getElementById('loading').style.display = 'none';
+                return;
+            }
+            
+            // Validar fin de contrato para modalidades temporales
+            const modalidadesPermanentes = ['Nombrado DL.276', 'Nombrado DL.1057', 'CAS. DL.1057 Indeterminado'];
+            if (!modalidadesPermanentes.includes(modalidad) && !data.finContrato) {
+                alert('Debe especificar la fecha de fin de contrato para esta modalidad');
+                document.getElementById('loading').style.display = 'none';
+                return;
+            }
+            
             // ENVÍO REAL A GOOGLE APPS SCRIPT
             try {
                 console.log('📤 Enviando a Google Apps Script:', GOOGLE_SCRIPT_URL);
@@ -919,55 +982,35 @@
                     body: JSON.stringify(data)
                 });
 
-                document.getElementById('loading').classList.remove('show');
+                document.getElementById('loading').style.display = 'none';
                 
                 const result = await response.json();
                 console.log('✅ Respuesta del servidor:', result);
                 
                 if (result.status === 'success') {
-                    mostrarAlerta(`¡Solicitud enviada exitosamente! Tu número de ticket es: ${result.ticket}. Recibirás una confirmación por correo.`, 'success');
+                    alert(`✅ ¡Solicitud enviada exitosamente!\n\nTu número de ticket es: ${result.ticket}\n\nRecibirás una confirmación por correo.\n\nEl área de soporte atenderá tu solicitud a la brevedad.`);
                     
                     // Limpiar formulario después de envío exitoso
                     setTimeout(() => {
                         if (confirm('¿Desea realizar otra solicitud?')) {
-                            limpiarFormulario();
+                            limpiarFormulario(true);
                         }
-                    }, 3000);
+                    }, 2000);
                 } else {
-                    mostrarAlerta('Error: ' + (result.message || 'Error desconocido del servidor'), 'danger');
+                    alert('❌ Error: ' + (result.message || 'Error desconocido del servidor'));
                 }
                 
             } catch (error) {
-                document.getElementById('loading').classList.remove('show');
+                document.getElementById('loading').style.display = 'none';
                 console.error('💥 Error completo en envío:', error);
-                mostrarAlerta('Error de conexión. Verifica tu internet e intenta nuevamente.', 'danger');
+                alert('❌ Error de conexión. Verifica tu internet e intenta nuevamente.');
             }
         });
 
-        // Función para probar la conexión (opcional)
-        async function probarConexion() {
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL);
-                const text = await response.text();
-                console.log('🔍 Test conexión:', text);
-                return true;
-            } catch (error) {
-                console.error('❌ Test conexión falló:', error);
-                return false;
-            }
-        }
-
-        // Probar conexión al cargar la página
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                probarConexion().then(success => {
-                    if (success) {
-                        console.log('✅ Conexión con Google Apps Script: OK');
-                    } else {
-                        console.warn('⚠️ Conexión con Google Apps Script: FALLÓ');
-                    }
-                });
-            }, 1000);
+        // Inicializar al cargar la página
+        window.addEventListener('DOMContentLoaded', function() {
+            establecerFechaMaximaNacimiento();
+            toggleFinContrato();
         });
     </script>
 </body>
